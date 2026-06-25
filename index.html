@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essential Help — Shiok POS</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F6F8;
+      --surface: #FFFFFF;
+      --border: #E2E6ED;
+      --text: #0F1623;
+      --muted: #6B7280;
+      --faint: #9AA3B0;
+      --green: #00B67A;
+      --green-light: #E6F7F1;
+      --green-dark: #008F60;
+      --yellow: #FFE000;
+      --navy: #0D1B3E;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logo {
+      background: var(--yellow);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .brand-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.2px;
+    }
+    .brand-name span { color: var(--yellow); }
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #25D366;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 100px;
+      text-decoration: none;
+    }
+    .wa-btn svg { width: 14px; height: 14px; fill: white; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      padding: 32px 20px 40px;
+      text-align: center;
+      border-bottom: 3px solid var(--yellow);
+    }
+    .hero-inner { max-width: 560px; margin: 0 auto; }
+    .hero-tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
+
+    /* ── TAB NAV ── */
+    .tab-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      position: sticky;
+      top: 56px;
+      z-index: 100;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-nav-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      margin-bottom: -1px;
+    }
+    .tab-btn svg {
+      width: 14px; height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--green-dark);
+      border-bottom-color: var(--green);
+      font-weight: 600;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── SECTION HEADING ── */
+    .section-head {
+      margin-bottom: 20px;
+    }
+    .section-head h2 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .section-head p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ── STEP CARD ── */
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-bottom: 12px;
+    }
+    .step-num-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .step-num {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      border-radius: 50%;
+      background: var(--green);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .step-content {}
+    .step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .step-body {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .step-body strong { color: var(--text); font-weight: 600; }
+    .step-body ul, .step-body ol {
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .step-body li { margin-bottom: 5px; }
+    .step-body a { color: var(--green-dark); text-decoration: underline; }
+
+    .tip {
+      margin-top: 10px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 9px 13px;
+      font-size: 13px;
+      color: var(--green-dark);
+      line-height: 1.6;
+    }
+    .warn {
+      margin-top: 10px;
+      background: #FFF8E6;
+      border-left: 3px solid #F59E0B;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 9px 13px;
+      font-size: 13px;
+      color: #92400E;
+      line-height: 1.6;
+    }
+
+    /* Screenshot placeholder */
+    .screenshot {
+      margin-top: 12px;
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 16px;
+      text-align: center;
+    }
+    .screenshot svg {
+      width: 24px; height: 24px;
+      stroke: var(--faint);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .screenshot-label { font-size: 11px; font-weight: 600; color: var(--faint); text-transform: uppercase; letter-spacing: 0.5px; }
+    .screenshot-hint { font-size: 11.5px; color: var(--faint); }
+
+    /* ── SUBSECTION LABEL ── */
+    .sub-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 28px 0 12px;
+    }
+    .sub-label:first-child { margin-top: 0; }
+
+    /* ── FAQ ── */
+    .faq-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .faq-q {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .faq-q:hover { background: var(--bg); }
+    .faq-q-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      transition: transform 0.2s, background 0.15s;
+    }
+    .faq-chevron svg {
+      width: 10px; height: 10px;
+      fill: none;
+      stroke: var(--muted);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .faq-card.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--green-light);
+      border-color: var(--green);
+    }
+    .faq-card.open .faq-chevron svg { stroke: var(--green-dark); }
+    .faq-a {
+      display: none;
+      padding: 0 20px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .faq-card.open .faq-a { display: block; }
+    .faq-a p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 12px;
+    }
+    .faq-a p + p { margin-top: 8px; }
+    .faq-a strong { color: var(--text); font-weight: 600; }
+    .faq-a ul, .faq-a ol {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-top: 10px;
+      padding-left: 18px;
+      line-height: 1.7;
+    }
+    .faq-a li { margin-bottom: 5px; }
+    .faq-a a { color: var(--green-dark); }
+
+    /* ── SUPPORT BLOCK ── */
+    .support-block {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      margin-top: 36px;
+    }
+    .support-block h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+    }
+    .support-block p {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .support-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .wa-big {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+    }
+    .wa-big svg { width: 17px; height: 17px; fill: white; }
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .support-hours {
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 12px;
+      color: var(--faint);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 22px; }
+      main { padding: 20px 16px 64px; }
+      .step-card { padding: 16px; }
+      .tab-btn { padding: 12px 14px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-logo">😊</div>
+      <div class="brand-name"><span>Essential</span> Help</div>
+    </div>
+    <a class="wa-btn" href="https://wa.me/60116882880" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Need help?
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Shiok POS</div>
+    <h1>Essential Help</h1>
+    <p>Step-by-step guides for your Essential device. Tap a section below to get started.</p>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="switchTab('getting-started', this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+      Getting Started
+    </button>
+    <button class="tab-btn" onclick="switchTab('your-app', this)">
+      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      Your App
+    </button>
+    <button class="tab-btn" onclick="switchTab('merchant-portal', this)">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Merchant Portal
+    </button>
+    <button class="tab-btn" onclick="switchTab('device-care', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Device Care
+    </button>
+    <button class="tab-btn" onclick="switchTab('faq', this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      FAQ
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── TAB 1: GETTING STARTED ── -->
+  <div class="tab-panel active" id="getting-started">
+    <div class="section-head">
+      <h2>Getting Started</h2>
+      <p>Follow these steps when you first receive your Essential device.</p>
+    </div>
+
+    <div class="sub-label">Unboxing</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Check everything in the box</div>
+          <div class="step-body">Remove everything carefully and check the device and accessories are in good condition. If anything is missing or damaged, contact us immediately at <strong>support@shiokpos.com</strong> or WhatsApp <strong>+6011 1688 2880</strong> before doing anything else.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Remove the battery seal</div>
+          <div class="step-body">Open the back cover and remove the white tape from the battery. The device will not power on if this seal is still attached.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Photo showing battery seal location inside back cover</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Fiuu Account Activation</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Wait for your Fiuu approval email</div>
+          <div class="step-body">Activation takes <strong>5–7 working days</strong> after we receive your business details. You will get an approval email from Fiuu with your <strong>Merchant ID, email, and password</strong>. Save these — you will need them to log in.</div>
+          <div class="tip">Check your Spam or Junk folder if you don't see it. Contact us if it hasn't arrived after 7 working days.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Example of Fiuu approval email</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Power on the device</div>
+          <div class="step-body">Hold the power button on the side of the device for <strong>3–5 seconds</strong> until the screen lights up. If it doesn't turn on, charge it for at least 30 minutes first.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 2: YOUR APP ── -->
+  <div class="tab-panel" id="your-app">
+    <div class="section-head">
+      <h2>Your App</h2>
+      <p>How to install, activate, and use the Fiuu Virtual Terminal app on your device.</p>
+    </div>
+
+    <div class="sub-label">Installing the App</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Open Google Play Store</div>
+          <div class="step-body">Sign in with your Google account on the device, then search for <strong>"Fiuu Virtual Terminal"</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Download and install</div>
+          <div class="step-body">Select the correct app (published by Fiuu), tap <strong>Install</strong>, and wait for it to finish.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Fiuu Virtual Terminal on Play Store</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">First-Time Setup</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Allow camera and location access</div>
+          <div class="step-body">When prompted, select <strong>"While using the app"</strong> for both camera (needed for QR scanning) and location (needed for support). Then tap <strong>Activate</strong>.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Camera and location permission screens</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Agree to Privacy Policy and scan your QR code</div>
+          <div class="step-body">Tick the box to agree to Fiuu's Privacy Policy, then tap <strong>"Scan with QR Code"</strong>. You will get this QR code from the Fiuu Merchant Portal — see the Merchant Portal tab for how to find it.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Privacy policy screen and QR scan screen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Set your 4-digit passcode</div>
+          <div class="step-body">Choose a passcode you will remember. You will need this every time you open the app. Once set, you are ready to accept payments.</div>
+          <div class="tip">Keep this passcode secure. If multiple staff use the device, make sure only trusted people know it.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Set passcode screen and success screen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Taking Payments</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Accepting a payment</div>
+          <div class="step-body">From the home screen, select the payment method (Card, DuitNow QR, GrabPay, Touch 'n Go, ShopeePay, Boost, WeChat Pay, UnionPay, or Alipay+), enter the amount, and proceed. Always wait for the <strong>Payment Approved</strong> screen before completing the transaction.</div>
+          <div class="warn">Never hand over goods until you see the approval confirmation on screen.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">Sending a digital receipt</div>
+          <div class="step-body">The device does not print physical receipts. After a successful payment, go to <strong>Orders</strong> inside the app to send a digital receipt to your customer via email or WhatsApp.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 3: MERCHANT PORTAL ── -->
+  <div class="tab-panel" id="merchant-portal">
+    <div class="section-head">
+      <h2>Merchant Portal</h2>
+      <p>Use the Fiuu Merchant Portal to check transactions, settlements, and manage your account.</p>
+    </div>
+
+    <div class="sub-label">Logging In</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Go to portal.fiuu.com</div>
+          <div class="step-body">Open your browser and go to <a href="https://portal.fiuu.com" target="_blank">portal.fiuu.com</a>. Enter your <strong>Merchant ID, email address</strong>, and <strong>password</strong> from your Fiuu approval email. Tick the Captcha and click Sign In.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Checking Transactions</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">View your transaction history</div>
+          <div class="step-body">On the left sidebar, click <strong>Transactions → Main Accounts</strong>. You will see a list of all transactions with filters for date, channel, and amount. Click any Transaction ID to see the full details.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Fiuu portal transaction listing page</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Check your dashboard overview</div>
+          <div class="step-body">Click <strong>Dashboard</strong> on the sidebar to see your daily, weekly, and monthly sales totals broken down by payment channel (Mastercard, Visa, DuitNow, etc.).</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Fiuu dashboard showing sales overview</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Checking Settlements</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">View your settlement records</div>
+          <div class="step-body">Click <strong>Settlements → Records</strong> on the sidebar. You will see a list of all settlements with the date, bank account, and amount settled. Settlements are paid out <strong>T+1 working day</strong> to your registered bank account.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Fiuu settlement records listing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">See which transactions were in a settlement</div>
+          <div class="step-body">Click the <strong>i icon</strong> next to any settlement row to open the detailed breakdown. You can see every transaction included, plus export the list as Excel, CSV, or TXT.</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">Detailed settlement breakdown page</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Activating Your Terminal</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Get your VT Activation QR code</div>
+          <div class="step-body">On the sidebar, click <strong>VT Activation</strong>. Find your terminal in the list and click <strong>View QR</strong>. Scan this QR code with your Essential device during the app setup process (Step 4 in Your App).</div>
+          <div class="screenshot">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="screenshot-label">Add screenshot</div>
+            <div class="screenshot-hint">VT Activation page with View QR button</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Managing Your Team</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">Give your staff or accountant portal access</div>
+          <div class="step-body">Go to <strong>Settings → Access Settings</strong> and click <strong>Register Sub User</strong>. Fill in their name and email. They will receive login credentials and can access the portal without needing your main account password.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Payment Links</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">8</div>
+        <div class="step-content">
+          <div class="step-title">Send a payment link to a customer</div>
+          <div class="step-body">Click <strong>Payment Link</strong> on the sidebar. Enter the customer's name, email, and amount, then click <strong>Proceed</strong> to send the link.</div>
+          <div class="tip">Payment links require Fiuu Online to be enabled on your account. Your Essential device runs on Fiuu Offline by default. Contact us to enable this — no extra documents needed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 4: DEVICE CARE ── -->
+  <div class="tab-panel" id="device-care">
+    <div class="section-head">
+      <h2>Device Care</h2>
+      <p>Keeping your Essential device in good shape and what to do when something goes wrong.</p>
+    </div>
+
+    <div class="sub-label">Daily Use</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Keep it charged</div>
+          <div class="step-body">Plug in the device when not in use. New devices can take a few charge cycles to reach full battery efficiency — if fast drain continues after the first week, contact us.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Keep it connected</div>
+          <div class="step-body">The device needs Wi-Fi or mobile data to process payments. For events or outdoor use, have a mobile hotspot ready as a backup. You can also insert your own SIM card for dedicated connectivity.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label">Troubleshooting</div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Device is frozen or unresponsive</div>
+          <div class="step-body">Hold the power button for <strong>5–10 seconds</strong> until the device shuts off. Wait 10 seconds, then power it back on. This resolves most freezing issues.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Screen shows "No Connection"</div>
+          <div class="step-body">Check in this order:
+            <ul>
+              <li>SIM card is properly inserted and has an active data plan</li>
+              <li>Wi-Fi is connected under Settings → Wi-Fi</li>
+              <li>Restart the device and check again</li>
+              <li>Restart your router if the internet connection itself is the problem</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Device won't turn on</div>
+          <div class="step-body">First check that the <strong>battery seal has been removed</strong> from inside the back cover. Then charge for at least 30 minutes and try again. If it still won't power on, contact us.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Screen is cracked or device is damaged</div>
+          <div class="step-body">Stop using the device if the screen is unreadable or damage affects its function. Take a photo of the damage and WhatsApp us with your merchant name. We will advise on repair or replacement.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num-row">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">Device is lost or stolen</div>
+          <div class="step-body">Contact us <strong>immediately</strong> at +6011 1688 2880. We will help secure your account and advise the next steps.</div>
+          <div class="warn">Do not delay — report it as soon as possible to protect your merchant account.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 5: FAQ ── -->
+  <div class="tab-panel" id="faq">
+    <div class="section-head">
+      <h2>Frequently Asked Questions</h2>
+      <p>Quick answers to the most common questions.</p>
+    </div>
+
+    <div class="sub-label">Setup & Account</div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">How long does activation take?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Usually <strong>5–7 working days</strong> after we receive your business details. You will receive an approval email from Fiuu with your login credentials. We will also notify you when it's ready.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">I didn't receive the approval email. What do I do?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Check your <strong>Spam or Junk folder</strong> first. If it's still not there after 7 working days, WhatsApp us and we'll follow up with Fiuu on your behalf.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Is Essential a POS system?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>No. Essential is a <strong>payment acceptance device only</strong>. It does not include order management, menus, or inventory features.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Is there a monthly fee?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>No. Essential is a <strong>one-time purchase</strong>. You own the device outright with no recurring fees from Shiok POS.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Can I change my bank account after setup?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Yes. Email Fiuu directly at <a href="mailto:support@fiuu.com">support@fiuu.com</a> with your Merchant ID and new bank account details.</p>
+      </div>
+    </div>
+
+    <div class="sub-label">Taking Payments</div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">How do I know if a payment went through?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Wait for the <strong>Payment Approved</strong> screen on the device. Only complete the transaction after you see this. Never hand over goods based on a frozen or unclear screen.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">What payment methods does Essential support?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Cards (Mastercard, Visa), DuitNow QR, GrabPay, Touch 'n Go eWallet, ShopeePay, Boost, WeChat Pay, UnionPay, and Alipay+. The exact methods available depend on what's enabled under your Fiuu merchant account.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Do I need Wi-Fi to accept payments?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Yes. The device needs internet to process payments — either Wi-Fi or mobile data via SIM card. Always have a backup hotspot ready for events.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">A customer's QR code won't scan. What do I do?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Increase brightness on both screens, wipe the camera lens, and hold the device about 15–20 cm away. Ask the customer to refresh their QR code and try again.</p>
+      </div>
+    </div>
+
+    <div class="sub-label">Settlements & Records</div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">When will I receive my payout?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Settlements are paid out <strong>T+1 working day</strong> to your registered bank account. Weekends and public holidays are not counted. You can track this under Settlements in the Fiuu Merchant Portal.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">My expected settlement hasn't arrived. What do I do?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>First confirm the settlement date has passed (counting working days only). If more than 5 working days have passed, WhatsApp us with your merchant name and the relevant dates. We will raise it with Fiuu directly.</p>
+      </div>
+    </div>
+
+    <div class="sub-label">Other</div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Can I use the device at different locations or events?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Yes, anywhere as long as you have internet access.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Can multiple staff use the same device?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Yes. Just keep the 4-digit passcode secure and only share it with trusted staff.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span class="faq-q-text">Can I send a payment link to a customer who isn't present?</span>
+        <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-a">
+        <p>Yes, but this requires Fiuu Online to be enabled. Your device runs on Fiuu Offline by default. Contact us to enable payment links — no extra documents needed from your side.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SUPPORT -->
+  <div class="support-block">
+    <h3>Still need help?</h3>
+    <p>Message us with your merchant name and what you're seeing. We'll get back to you as soon as we can.</p>
+    <div class="support-btns">
+      <a class="wa-big" href="https://wa.me/60116882880" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Support
+      </a>
+      <a class="email-btn" href="mailto:support@shiokpos.com">support@shiokpos.com</a>
+    </div>
+    <div class="support-hours">Mon–Fri 9.30am–6.30pm &nbsp;|&nbsp; Sat 9.30am–12.30pm</div>
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 Shiok POS &mdash; an Amica Labs product
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleFaq(el) {
+    const card = el.parentElement;
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.faq-card.open').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
