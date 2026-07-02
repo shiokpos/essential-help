@@ -167,6 +167,47 @@
     [data-theme="dark"] .theme-toggle svg { stroke: var(--navy); }
     [data-theme="dark"] .theme-toggle:hover { background: rgba(0,32,58,0.1); }
 
+  
+    /* Sub-nav pills */
+    .subnav { padding: 12px 0 4px; margin-bottom: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; display: flex; gap: 8px; white-space: nowrap; }
+    .subnav::-webkit-scrollbar { display: none; }
+    .subnav-pill { display: inline-block; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; border: 1.5px solid var(--border); background: var(--surface); color: var(--muted); cursor: pointer; font-family: "Raleway", sans-serif; transition: all 0.15s; text-decoration: none; white-space: nowrap; }
+    .subnav-pill:hover { background: var(--green-light); color: var(--green-dark); border-color: var(--green); }
+    [data-theme="dark"] .subnav-pill { background: var(--surface); color: var(--muted); border-color: var(--border); }
+    [data-theme="dark"] .subnav-pill:hover { background: var(--green-light); color: var(--green-dark); border-color: var(--green); }
+
+    /* Section anchors offset for sticky nav */
+    .section-anchor { display: block; height: 0; margin-top: -80px; padding-top: 80px; pointer-events: none; }
+
+    /* Collapsible FAQ groups */
+    .faq-group-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; padding: 14px 0 10px; border-bottom: 1.5px solid var(--border); margin-bottom: 12px; -webkit-tap-highlight-color: transparent; }
+    .faq-group-title { font-size: 11px; font-weight: 800; color: var(--faint); text-transform: uppercase; letter-spacing: 1px; }
+    .faq-group-toggle { width: 22px; height: 22px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background 0.15s; flex-shrink: 0; }
+    .faq-group-toggle svg { width: 10px; height: 10px; fill: none; stroke: var(--muted); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .faq-group.collapsed .faq-group-toggle { transform: rotate(-90deg); }
+    .faq-group.collapsed .faq-group-body { display: none; }
+    .faq-group-body { margin-bottom: 8px; }
+
+    /* FAQ search */
+    .faq-search-wrap { position: relative; margin-bottom: 20px; }
+    .faq-search { width: 100%; padding: 12px 16px 12px 44px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; font-family: "Raleway", sans-serif; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.15s; }
+    .faq-search:focus { border-color: var(--green); }
+    .faq-search::placeholder { color: var(--faint); }
+    .faq-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; fill: none; stroke: var(--faint); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+    .faq-no-results { text-align: center; padding: 32px 20px; color: var(--muted); font-size: 14px; display: none; }
+    [data-theme="dark"] .faq-search { background: var(--surface); color: var(--text); border-color: var(--border); }
+
+    /* Scroll to top button */
+    .scroll-top { position: fixed; bottom: 88px; right: 24px; z-index: 998; width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.1); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; }
+    .scroll-top.visible { opacity: 1; pointer-events: all; }
+    .scroll-top:hover { transform: translateY(-2px); }
+    .scroll-top svg { width: 16px; height: 16px; fill: none; stroke: var(--navy); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    [data-theme="dark"] .scroll-top { background: var(--surface); border-color: var(--border); }
+    [data-theme="dark"] .scroll-top svg { stroke: var(--text); }
+
+    /* FAQ card hidden state for search */
+    .faq-card.hidden { display: none; }
+
   </style>
 </head>
 <body>
@@ -220,31 +261,78 @@
 <main>
 
 <div class="tab-panel active" id="getting-started">
+  <div class="subnav">
+    <a class="subnav-pill" href="#gs-inbox-anchor">What's in the box</a>
+    <a class="subnav-pill" href="#gs-setup-anchor">Getting set up</a>
+    <a class="subnav-pill" href="#gs-help-anchor">Need help?</a>
+  </div>
   <div class="section-head">
     <h2 class="t" data-key="gs_title">Getting Started</h2>
-    <p class="t" data-key="gs_sub">Follow these steps when you first receive your Essential device.</p>
+    <p class="t" data-key="gs_sub">Your device is ready to go. Here is what to do when it arrives.</p>
   </div>
-  <div class="sub-label">Unboxing</div>
-  <div class="step-card"><div class="step-num-row"><div class="step-num">1</div><div class="step-content"><div class="step-title t" data-key="gs1_title">Check everything in the box</div><div class="step-body t" data-key="gs1_body">Remove everything carefully and check the device and accessories are in good condition. If anything is missing or damaged, contact us immediately at <strong>support@shiokpos.com</strong> or WhatsApp <strong>+6014 3212 880</strong> before doing anything else.</div></div></div></div>
-  <div class="step-card"><div class="step-num-row"><div class="step-num">2</div><div class="step-content"><div class="step-title t" data-key="gs2_title">Remove the battery seal</div><div class="step-body t" data-key="gs2_body">Open the back cover and remove the white tape from the battery. The device will not power on if this seal is still attached.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">Photo showing battery seal location inside back cover</div></div></div></div></div>
-  <div class="sub-label">Fiuu Account Activation</div>
-  <div class="step-card"><div class="step-num-row"><div class="step-num">3</div><div class="step-content"><div class="step-title t" data-key="gs3_title">Wait for your Fiuu approval email</div><div class="step-body t" data-key="gs3_body">Activation takes <strong>5&#8211;7 working days</strong> after we receive your business details. You will get an approval email from Fiuu with your <strong>Merchant ID, email, and password</strong>. Save these &#8212; you will need them to log in.</div><div class="tip t" data-key="gs3_tip">Check your Spam or Junk folder if you don&#39;t see it. Contact us if it hasn&#39;t arrived after 7 working days.</div></div></div></div>
-  <div class="step-card"><div class="step-num-row"><div class="step-num">4</div><div class="step-content"><div class="step-title t" data-key="gs4_title">Power on the device</div><div class="step-body t" data-key="gs4_body">Hold the power button on the side of the device for <strong>3&#8211;5 seconds</strong> until the screen lights up. If it doesn&#39;t turn on, charge it for at least 30 minutes first.</div></div></div></div>
+
+  <span class="section-anchor" id="gs-inbox-anchor"></span>
+  <div class="sub-label">What is in the box</div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">1</div><div class="step-content">
+    <div class="step-title">Check everything is there</div>
+    <div class="step-body">Your box should contain:<ul><li>Your Essential payment device (Zolon Elys Note M9200)</li><li>Charger and cable</li><li>Thermal receipt paper roll (pre-loaded)</li><li>A welcome card with a QR code linking to this guide</li></ul>If anything is missing or looks damaged, WhatsApp us at <strong>+6014 3212 880</strong> before doing anything else.</div>
+  </div></div></div>
+
+  <span class="section-anchor" id="gs-setup-anchor"></span>
+  <div class="sub-label">Getting set up</div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">2</div><div class="step-content">
+    <div class="step-title">Power on the device</div>
+    <div class="step-body">Hold the power button on the side of the device for 3 to 5 seconds until the screen lights up. The device has been fully set up by our team before shipping, so you do not need to install anything.</div>
+  </div></div></div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">3</div><div class="step-content">
+    <div class="step-title">Connect to Wi-Fi or a hotspot</div>
+    <div class="step-body">Before opening the payments app, make sure the device is connected to the internet. Go to <strong>Settings &rarr; Wi-Fi</strong> and connect to your network. Alternatively, you can insert a SIM card for mobile data or tether to your phone's hotspot.<br><br>The device needs an internet connection to process payments, so this step is important before you start.</div>
+    <div class="tip">If you plan to use the device at events or outdoor locations, set up a mobile hotspot on your phone as a backup before heading out.</div>
+  </div></div></div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">4</div><div class="step-content">
+    <div class="step-title">Open the Fiuu Virtual Terminal app and start accepting payments</div>
+    <div class="step-body">Tap the <strong>Fiuu VT</strong> app on the home screen. The app has already been installed and activated by our team. Enter your 4-digit passcode (provided in your welcome card or sent to you separately) and you are ready to accept payments straight away.</div>
+    <div class="tip">Your passcode is set by our team during setup. You can change it anytime inside the app under Settings.</div>
+  </div></div></div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">5</div><div class="step-content">
+    <div class="step-title">Access your Merchant Portal</div>
+    <div class="step-body">Your Fiuu Merchant Portal is where you track transactions, check settlements, and manage your account. Log in at <a href="https://portal.fiuu.com" target="_blank">portal.fiuu.com</a> using the credentials in your Fiuu approval email. Head to the <strong>Merchant Portal</strong> tab in this guide for a full walkthrough.</div>
+  </div></div></div>
+
+  <span class="section-anchor" id="gs-help-anchor"></span>
+  <div class="sub-label">Need help?</div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">6</div><div class="step-content">
+    <div class="step-title">We are here if you get stuck</div>
+    <div class="step-body">WhatsApp us at <strong>+6014 3212 880</strong> or email <strong>support@shiokpos.com</strong>. Our support hours are Monday to Friday, 9.30am to 6.30pm, and Saturday 9.30am to 12.30pm.<br><br>If you ever need to reinstall the Fiuu VT app, just WhatsApp us and we will guide you through it or do it remotely for you.</div>
+  </div></div></div>
 </div>
 
-
 <div class="tab-panel" id="your-app">
+  <div class="subnav">
+    <a class="subnav-pill" href="#app-install-anchor">Installing</a>
+    <a class="subnav-pill" href="#app-setup-anchor">First-time setup</a>
+    <a class="subnav-pill" href="#app-payments-anchor">Taking payments</a>
+  </div>
   <div class="section-head">
     <h2 class="t" data-key="app_title">Your App</h2>
     <p class="t" data-key="app_sub">How to install, activate, and use the Fiuu Virtual Terminal app on your device.</p>
   </div>
+  <span class="section-anchor" id="app-install-anchor"></span>
   <div class="sub-label">Installing the App</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">1</div><div class="step-content"><div class="step-title t" data-key="app1_title">Open Google Play Store</div><div class="step-body t" data-key="app1_body">Sign in with your Google account on the device, then search for <strong>&#8220;Fiuu Virtual Terminal&#8221;</strong>.</div></div></div></div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">2</div><div class="step-content"><div class="step-title t" data-key="app2_title">Download and install</div><div class="step-body t" data-key="app2_body">Select the correct app (published by Fiuu), tap <strong>Install</strong>, and wait for it to finish.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">Fiuu Virtual Terminal on Play Store</div></div></div></div></div>
+  <span class="section-anchor" id="app-setup-anchor"></span>
   <div class="sub-label">First-Time Setup</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">3</div><div class="step-content"><div class="step-title t" data-key="app3_title">Allow camera and location access</div><div class="step-body t" data-key="app3_body">When prompted, select <strong>&#8220;While using the app&#8221;</strong> for both camera and location. Then tap <strong>Activate</strong>.</div></div></div></div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">4</div><div class="step-content"><div class="step-title t" data-key="app4_title">Agree to Privacy Policy and scan your QR code</div><div class="step-body t" data-key="app4_body">Tick the box to agree to Fiuu&#39;s Privacy Policy, then tap <strong>&#8220;Scan with QR Code&#8221;</strong>. Get the QR code from the Fiuu Merchant Portal under VT Activation.</div></div></div></div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">5</div><div class="step-content"><div class="step-title t" data-key="app5_title">Set your 4-digit passcode</div><div class="step-body t" data-key="app5_body">Choose a passcode you will remember. You will need this every time you open the app. Once set, you are ready to accept payments.</div><div class="tip t" data-key="app5_tip">Keep this passcode secure. Only share it with trusted staff.</div></div></div></div>
+  <span class="section-anchor" id="app-payments-anchor"></span>
   <div class="sub-label">Taking Payments</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">6</div><div class="step-content"><div class="step-title t" data-key="app6_title">Accepting a payment</div><div class="step-body t" data-key="app6_body">From the home screen, select the payment method (Card, DuitNow QR, GrabPay, Touch &#39;n Go, ShopeePay, Boost, WeChat Pay, UnionPay, or Alipay+), enter the amount, and proceed. Always wait for the <strong>Payment Approved</strong> screen before completing the transaction.</div><div class="warn t" data-key="app6_warn">Never hand over goods until you see the approval confirmation on screen.</div></div></div></div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">7</div><div class="step-content"><div class="step-title t" data-key="app7_title">Sending a digital receipt</div><div class="step-body t" data-key="app7_body">The device does not print physical receipts. After a successful payment, go to <strong>Orders</strong> inside the app to send a digital receipt to your customer.</div></div></div></div>
@@ -252,16 +340,25 @@
 
 
 <div class="tab-panel" id="merchant-portal">
+  <div class="subnav">
+    <a class="subnav-pill" href="#mp-login-anchor">Logging in</a>
+    <a class="subnav-pill" href="#mp-transactions-anchor">Transactions</a>
+    <a class="subnav-pill" href="#mp-settlements-anchor">Settlements</a>
+    <a class="subnav-pill" href="#mp-refunds-anchor">Refunds</a>
+    <a class="subnav-pill" href="#mp-account-anchor">Account</a>
+  </div>
   <div class="section-head">
     <h2 class="t" data-key="mp_title">Merchant Portal</h2>
     <p class="t" data-key="mp_sub">Use the Fiuu Merchant Portal to check transactions, settlements, and manage your account.</p>
   </div>
 
+  <span class="section-anchor" id="mp-login-anchor"></span>
   <div class="sub-label">Logging In</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Go to portal.fiuu.com</div><div class="step-body">Open your browser and go to <a href="https://portal.fiuu.com" target="_blank">portal.fiuu.com</a>. Enter your <strong>Merchant ID, email address</strong>, and <strong>password</strong> from your Fiuu approval email. Tick the Captcha and click Sign In.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">Fiuu portal login screen</div></div></div></div></div>
 
   <div class="step-card"><div class="step-num-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Set up Two-Factor Authentication (2FA)</div><div class="step-body">Fiuu requires 2FA on every login. On first setup, click your profile picture at the top right &#8594; <strong>My Profile</strong> &#8594; scan the QR code with an authenticator app &#8594; enter the code &#8594; click <strong>Enable 2FA</strong>. Log out and back in to activate it. From then on, you will be prompted for your 2FA code every time you log in.</div><div class="tip">Use Google Authenticator or any standard authenticator app. 2FA is set up once but required on every login.</div></div></div></div>
 
+  <span class="section-anchor" id="mp-transactions-anchor"></span>
   <div class="sub-label">Checking Transactions</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">View your transaction history</div><div class="step-body">On the left sidebar, click <strong>Transactions &#8594; Main Accounts</strong>. You will see your account balance, a list of all transactions, and filter tools to search by date, channel, amount, or order ID. Click any Transaction ID to see the full details including customer information, payment channel, timeline, and status.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">Fiuu portal transaction listing page</div></div></div></div></div>
 
@@ -269,14 +366,17 @@
 
   <div class="step-card"><div class="step-num-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Check your sales dashboard</div><div class="step-body">Click <strong>Dashboard</strong> on the sidebar to see your daily, weekly, and monthly sales totals, broken down by payment channel (Mastercard, Visa, DuitNow, GrabPay, etc.). This is your quickest view of overall business performance.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">Fiuu dashboard showing sales overview</div></div></div></div></div>
 
+  <span class="section-anchor" id="mp-settlements-anchor"></span>
   <div class="sub-label">Settlements</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">View your settlement records</div><div class="step-body">Click <strong>Settlements &#8594; Records</strong> on the sidebar. You will see a list of all settlements showing the date, bank account the funds were sent to, and the total amount. Settlements are paid <strong>T+1 working day</strong> to your registered bank account.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">Fiuu settlement records listing</div></div></div></div></div>
 
   <div class="step-card"><div class="step-num-row"><div class="step-num">7</div><div class="step-content"><div class="step-title">See which transactions were in a settlement</div><div class="step-body">Click the <strong>i icon</strong> next to any settlement row. You will see a detailed breakdown of every transaction included, plus tabs for Chargebacks, Refunds, and Captured Refunds. You can export the full list as Excel, CSV, ODS, or TXT.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">Detailed settlement breakdown page</div></div></div></div></div>
 
+  <span class="section-anchor" id="mp-refunds-anchor"></span>
   <div class="sub-label">Refunds</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">8</div><div class="step-content"><div class="step-title">Process a refund</div><div class="step-body">Click <strong>Refund</strong> on the sidebar. Under <strong>Incoming Request</strong>, you can approve or reject refund requests. Under <strong>Refund History</strong>, you can view all past refund requests and their status, download records, and check the refund method used.</div><div class="warn">Refunds can only be made up to the original transaction amount. You can also initiate a refund directly from a transaction by clicking the Request Cancel button on the transaction detail page.</div></div></div></div>
 
+  <span class="section-anchor" id="mp-account-anchor"></span>
   <div class="sub-label">Account Management</div>
   <div class="step-card"><div class="step-num-row"><div class="step-num">9</div><div class="step-content"><div class="step-title">Get your VT Activation QR code</div><div class="step-body">Click <strong>VT Activation</strong> on the sidebar. Find your terminal in the list and click <strong>View QR</strong>. Scan this QR code with your Essential device during the app setup process. If you need to register a new terminal, click <strong>+ New VT Terminal</strong>.</div><div class="screenshot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="screenshot-label">Add screenshot</div><div class="screenshot-hint">VT Activation page with View QR button</div></div></div></div></div>
 
@@ -288,87 +388,212 @@
 </div>
 
 <div class="tab-panel" id="device-care">
+  <div class="subnav">
+    <a class="subnav-pill" href="#dc-daily-anchor">Daily habits</a>
+    <a class="subnav-pill" href="#dc-connectivity-anchor">Connectivity</a>
+    <a class="subnav-pill" href="#dc-troubleshooting-anchor">Troubleshooting</a>
+    <a class="subnav-pill" href="#dc-updates-anchor">Updates</a>
+  </div>
   <div class="section-head">
     <h2 class="t" data-key="dc_title">Device Care</h2>
-    <p class="t" data-key="dc_sub">How to keep your Essential device in good shape and what to do when something goes wrong.</p>
+    <p class="t" data-key="dc_sub">How to keep your Essential device running well and what to do when something goes wrong.</p>
   </div>
 
-  <div class="sub-label">Daily Habits</div>
-  <div class="step-card"><div class="step-num-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Keep it charged</div><div class="step-body">Plug the device in when not in active use. Avoid letting the battery drain completely before charging &#8212; this degrades battery life over time. Keep it away from direct sunlight and hot environments. If battery drain is unusually fast after the first week, contact us.</div></div></div></div>
+  <span class="section-anchor" id="dc-daily-anchor"></span>
+  <div class="sub-label">Daily habits</div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Restart the device weekly</div><div class="step-body">Like a phone or laptop, your Essential device benefits from a regular restart. Do this at least once a week during a quiet period &#8212; hold the power button, tap Restart, and let it reboot. This clears temporary files and keeps the device running smoothly.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">1</div><div class="step-content">
+    <div class="step-title">Keep it charged</div>
+    <div class="step-body">Plug the device in when it is not being used. Try not to let the battery drain to zero before charging as this shortens battery life over time. Keep the device away from direct sunlight and hot environments like car dashboards.<br><br>New devices may take a few charge cycles before the battery feels fully settled. If you notice unusually fast drain after the first week of use, WhatsApp us.</div>
+  </div></div></div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Keep the screen clean</div><div class="step-body">Wipe the screen gently with a soft, dry microfibre cloth. Do not use cleaning sprays, alcohol wipes, or abrasive materials directly on the screen. A clean screen also ensures the camera reads QR codes accurately.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">2</div><div class="step-content">
+    <div class="step-title">Restart it once a week</div>
+    <div class="step-body">Like a phone or laptop, your device benefits from a regular restart. Do this at least once a week during a quiet moment. Hold the power button and tap <strong>Restart</strong>. This clears temporary files, keeps things running smoothly, and prevents the kind of slowdowns that build up over time.</div>
+  </div></div></div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Keep the camera lens clear</div><div class="step-body">The camera is used for scanning QR codes. Keep it free from fingerprints, dust, and scratches. A dirty lens is the most common reason QR codes fail to scan. Wipe it gently with a soft cloth before busy periods.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">3</div><div class="step-content">
+    <div class="step-title">Keep the screen and camera clean</div>
+    <div class="step-body">Wipe the screen with a soft, dry microfibre cloth. Do not use cleaning sprays, alcohol wipes, or rough materials directly on the screen or camera lens. A clean camera lens is especially important as it is used to scan customer QR codes. Fingerprints and dust on the lens are the most common reason QR scans fail.</div>
+  </div></div></div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Keep it connected</div><div class="step-body">The device needs Wi-Fi or mobile data to process payments. For events or outdoor use, have a mobile hotspot ready as a backup. If you use a SIM card, check that the data plan is active before heading out.</div><div class="tip">Insert your own SIM card for dedicated connectivity at markets, events, or anywhere Wi-Fi is unreliable.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">4</div><div class="step-content">
+    <div class="step-title">Handle the receipt paper carefully</div>
+    <div class="step-body">The device uses thermal paper rolls. When loading a new roll, make sure the paper feeds from the bottom of the roll outwards. Close the paper compartment firmly until it clicks. Thermal paper is heat-sensitive, so avoid storing rolls in direct sunlight or near hot surfaces as this can cause the paper to darken and jam.</div>
+    <div class="tip">Running low on paper? WhatsApp us and we can arrange compatible replacement rolls for you. You can also source standard 58mm thermal paper rolls from most stationery suppliers.</div>
+  </div></div></div>
 
+  <span class="section-anchor" id="dc-connectivity-anchor"></span>
+  <div class="sub-label">Connectivity</div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">5</div><div class="step-content">
+    <div class="step-title">Always have a backup internet connection</div>
+    <div class="step-body">The device needs internet to process every payment. If your Wi-Fi goes down during business hours, you will not be able to accept payments until it is back. To avoid this, either insert a SIM card into the device's SIM card slot for mobile data, or keep your phone hotspot ready as a backup.</div>
+    <div class="tip">Going to an event, pasar malam, or outdoor location? Set up your hotspot before you leave, not when you are already there with a queue forming.</div>
+  </div></div></div>
+
+  <span class="section-anchor" id="dc-troubleshooting-anchor"></span>
   <div class="sub-label">Troubleshooting</div>
-  <div class="step-card"><div class="step-num-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Device is frozen or unresponsive</div><div class="step-body">Hold the power button for <strong>5&#8211;10 seconds</strong> until the device shuts off completely. Wait 10 seconds, then power it back on. This resolves most freezing issues. If the device freezes regularly, contact us &#8212; it may need a software update or replacement.</div></div></div></div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">7</div><div class="step-content"><div class="step-title">Screen shows &#8220;No Connection&#8221;</div><div class="step-body">Check in this order:<ul><li>SIM card is properly inserted and has an active data plan</li><li>Wi-Fi is connected under <strong>Settings &#8594; Wi-Fi</strong></li><li>Restart the device and check again</li><li>Restart your router if the internet connection is the problem</li><li>Try a mobile hotspot as an alternative</li></ul>If connection issues persist, contact us &#8212; we may need to reconfigure the device remotely.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">6</div><div class="step-content">
+    <div class="step-title">Device is frozen or unresponsive</div>
+    <div class="step-body">Hold the power button for 5 to 10 seconds until the screen turns off completely. Wait 10 seconds, then power it back on. This resolves most freezing issues. If the device freezes regularly, contact us as it may need a software update or a replacement unit.</div>
+  </div></div></div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">8</div><div class="step-content"><div class="step-title">Device won&#39;t turn on</div><div class="step-body">First check that the <strong>battery seal has been removed</strong> from inside the back cover &#8212; this is the most common cause on new devices. Then charge for at least 30 minutes and try holding the power button for 3&#8211;5 seconds. If it still won&#39;t power on, contact us.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">7</div><div class="step-content">
+    <div class="step-title">Screen shows "No Connection"</div>
+    <div class="step-body">Check the following in order:<ul><li>Is Wi-Fi connected? Go to <strong>Settings &rarr; Wi-Fi</strong> and check</li><li>If using a SIM card, is the data plan active?</li><li>Restart the device and try again</li><li>Try switching to a mobile hotspot instead</li><li>If none of that works, restart your router</li></ul>If connection issues keep coming back, WhatsApp us and we can check the device settings remotely.</div>
+  </div></div></div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">9</div><div class="step-content"><div class="step-title">Screen is cracked or device is physically damaged</div><div class="step-body">Stop using the device if the screen is unreadable or the damage affects its function. Take a photo of the damage and WhatsApp us with your merchant name. We will advise on repair or replacement. Do not attempt to open the device yourself.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">8</div><div class="step-content">
+    <div class="step-title">Device will not turn on</div>
+    <div class="step-body">Charge the device for at least 30 minutes first, then hold the power button for 3 to 5 seconds. If it still will not turn on, WhatsApp us straight away.</div>
+  </div></div></div>
 
-  <div class="step-card"><div class="step-num-row"><div class="step-num">10</div><div class="step-content"><div class="step-title">Device is lost or stolen</div><div class="step-body">Contact us <strong>immediately</strong> at +6014 3212 880. We will help secure your Fiuu merchant account to prevent unauthorised transactions and advise on the next steps.</div><div class="warn">Do not delay &#8212; report it as soon as possible to protect your account.</div></div></div></div>
+  <div class="step-card"><div class="step-num-row"><div class="step-num">9</div><div class="step-content">
+    <div class="step-title">Device is cracked, damaged, or not working properly</div>
+    <div class="step-body">Stop using the device and take a photo of the damage. WhatsApp us with your merchant name and the photo. We will assess whether it is covered under warranty and arrange the next steps.<br><br>The Essential device comes with a <strong>1-year warranty</strong> for manufacturing defects. If your unit is found to be defective, we will issue you a temporary replacement device while yours is sent to our service centre for repair. Once it is fixed, you will return the temporary unit to us.</div>
+    <div class="warn">Do not attempt to open or repair the device yourself as this will void the warranty.</div>
+  </div></div></div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">10</div><div class="step-content">
+    <div class="step-title">Device is lost or stolen</div>
+    <div class="step-body">Contact us immediately at <strong>+6014 3212 880</strong>. We will help suspend your terminal on the Fiuu system to prevent any unauthorised transactions. Report it to the police as well if needed.</div>
+    <div class="warn">Do not delay reporting a lost or stolen device. The sooner we know, the sooner we can protect your account.</div>
+  </div></div></div>
+
+  <span class="section-anchor" id="dc-updates-anchor"></span>
+  <div class="sub-label">Software updates</div>
+
+  <div class="step-card"><div class="step-num-row"><div class="step-num">11</div><div class="step-content">
+    <div class="step-title">You do not need to manage updates yourself</div>
+    <div class="step-body">If a software update is required for your device or the Fiuu VT app, we will contact you directly and walk you through it. You do not need to update anything on your own unless we ask you to. If you see an update notification on the device, WhatsApp us before tapping anything.</div>
+  </div></div></div>
 </div>
 
 <div class="tab-panel" id="faq">
   <div class="section-head">
     <h2 class="t" data-key="faq_title">Frequently Asked Questions</h2>
-    <p class="t" data-key="faq_sub">Quick answers to the most common questions.</p>
+    <p class="t" data-key="faq_sub">Straight answers to the most common questions.</p>
   </div>
 
-  <div class="sub-label">Setup &amp; Account</div>
+  <div class="subnav">
+    <a class="subnav-pill" href="#setup-anchor">Setup</a>
+    <a class="subnav-pill" href="#payments-anchor">Taking Payments</a>
+    <a class="subnav-pill" href="#receipts-anchor">Receipts</a>
+    <a class="subnav-pill" href="#settlements-anchor">Settlements</a>
+    <a class="subnav-pill" href="#warranty-anchor">Device &amp; Warranty</a>
+  </div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How long does activation take?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Usually <strong>5&#8211;7 working days</strong> after we receive your business details. You will receive an approval email from Fiuu with your login credentials. We will also notify you when it is ready.</p></div></div>
+  <div class="faq-search-wrap">
+    <svg class="faq-search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="faq-search" id="faq-search-input" type="text" placeholder="Search questions..." oninput="searchFaq(this.value)">
+  </div>
+  <div class="faq-no-results" id="faq-no-results">No questions matched your search. Try different keywords or <a href="#" onclick="clearFaqSearch();return false;">clear the search</a>.</div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">I didn&#39;t receive the approval email. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Check your <strong>Spam or Junk folder</strong> first. If it is still not there after 7 working days, WhatsApp us and we will follow up with Fiuu on your behalf.</p></div></div>
+  <div id="faq-groups">
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is Essential a POS system?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>No. Essential is a <strong>payment acceptance device only</strong>. It does not include order management, menus, or inventory features. It accepts payments and connects to the Fiuu Merchant Portal for transaction records.</p></div></div>
+    <div class="faq-group" id="group-setup">
+      <span class="section-anchor" id="setup-anchor"></span>
+      <div class="faq-group-header" onclick="toggleFaqGroup(this)">
+        <span class="faq-group-title">Setup and getting started</span>
+        <div class="faq-group-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-group-body">
+        <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">The device arrived but it will not turn on. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Plug it in and charge it for at least 30 minutes first. Then hold the power button on the side for 3 to 5 seconds. If it still does not turn on, WhatsApp us at <strong>+6014 3212 880</strong>.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is there a monthly fee?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>No. Essential is a <strong>one-time purchase</strong>. You own the device outright with no recurring device fees from Shiok POS. Payment processing fees (MDR) are set by Fiuu and apply per transaction.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do I need to install or set up anything?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>No. The device comes fully set up by our team. The Fiuu Virtual Terminal app is already installed and activated. Just power it on, connect to Wi-Fi, and you are ready to accept payments.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I change my bank account after setup?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. Email Fiuu directly at <a href="mailto:support@fiuu.com">support@fiuu.com</a> with your Merchant ID and new bank account details. You can also view and update settlement settings in the Merchant Portal under <strong>Settlements &#8594; Settings</strong>.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What is my passcode?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Your 4-digit passcode was either included in your welcome card or sent to you separately by our team. If you cannot find it, WhatsApp us and we will sort it out for you.</p></div></div>
 
-  <div class="sub-label">Taking Payments</div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is Essential a POS system?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>No. Essential is a payment acceptance device. It takes card and e-wallet payments and prints receipts, but it does not manage orders, menus, or inventory. If you need a full POS system, WhatsApp us and we can point you in the right direction.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do I know if a payment went through?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Wait for the <strong>Payment Approved</strong> screen on the device. Only complete the transaction after you see this. Never hand over goods based on a frozen or unclear screen. You can also verify by checking <strong>Transactions &#8594; Main Accounts</strong> in the Merchant Portal.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is there a monthly fee?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>No. Essential is a one-time purchase. You own the device. Fiuu charges a Merchant Discount Rate (MDR) per transaction as the payment processor, but there are no monthly fees from Shiok POS.</p></div></div>
+      </div>
+    </div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What payment methods does Essential support?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Cards (Mastercard, Visa), DuitNow QR, GrabPay, Touch &#39;n Go eWallet, ShopeePay, Boost, WeChat Pay, UnionPay, and Alipay+. The exact methods available depend on what is enabled under your Fiuu merchant account. Check your approval email or the Merchant Portal to confirm.</p></div></div>
+    <div class="faq-group" id="group-payments">
+      <span class="section-anchor" id="payments-anchor"></span>
+      <div class="faq-group-header" onclick="toggleFaqGroup(this)">
+        <span class="faq-group-title">Taking payments</span>
+        <div class="faq-group-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-group-body">
+        <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What payment methods can I accept?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Cards (Mastercard and Visa via tap, insert, or swipe), DuitNow QR, Touch 'n Go eWallet, GrabPay, ShopeePay, Boost, WeChat Pay, UnionPay, and Alipay+. The exact methods available depend on what is enabled under your Fiuu account. Check your approval email or the Merchant Portal to confirm.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I accept contactless card payments?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. The Essential device supports Tap on Phone (TOP) for contactless card payments. Go to <strong>Quick Pay &#8594; Card</strong>, enter the amount, then ask the customer to tap their card near the top of the device where the NFC antenna is located.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do I know if a payment went through?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Wait for the <strong>Payment Approved</strong> screen on the device. A receipt will also print automatically if paper is loaded. Only hand over goods after you see the approval screen. If the screen freezes or goes blank, do not assume the payment went through.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do I need Wi-Fi to accept payments?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. The device needs internet to process payments &#8212; either Wi-Fi or mobile data via SIM card. Always have a backup hotspot ready for events or outdoor use.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What do I do if the screen freezes mid-transaction?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Do not hand over goods yet. Hold the power button for 5 to 10 seconds to restart the device, then log in to the Merchant Portal at <a href="https://portal.fiuu.com" target="_blank">portal.fiuu.com</a> and check Transactions to see if the payment appears. If it does not, the payment did not go through and you can ask the customer to try again.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">A customer says they were charged but I don&#39;t see the transaction. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>First check <strong>Transactions &#8594; Pending</strong> in the Merchant Portal &#8212; it may still be processing. If it does not appear after 10 minutes, the charge most likely did not go through and the customer&#39;s bank will release any pending hold within 1&#8211;3 working days. WhatsApp us if you are unsure.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">A customer's QR code will not scan. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Try these in order:<ul><li>Wipe the camera lens with a soft cloth</li><li>Increase brightness on both the device screen and the customer's phone</li><li>Hold the device about 15 to 20 cm from the customer's screen</li><li>Ask the customer to refresh or reload their QR code</li></ul>If it still will not scan, ask the customer to pay by card instead.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What do I do if the screen freezes during a transaction?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Do not hand over goods yet. Hold the power button for 5&#8211;10 seconds to restart the device, then check the Merchant Portal to see if the transaction went through. If it did not appear, the payment was not completed and you should ask the customer to try again.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do I need Wi-Fi to accept payments?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. Every payment requires an internet connection. You can use Wi-Fi, a SIM card in the device's SIM slot, or tether to your phone's hotspot. Always have a backup option ready, especially at events or outdoor locations.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I issue a receipt?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>The device does not print physical receipts. After a successful payment, go to <strong>Orders</strong> inside the Fiuu VT app to send a digital receipt to your customer via email or WhatsApp.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">A customer says they were charged but I cannot see the transaction. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>First check <strong>Transactions &rarr; Pending</strong> in the Merchant Portal as it may still be processing. If it does not appear after 10 minutes, the charge most likely did not go through. The customer's bank may show a pending hold which will be released within 1 to 3 working days. WhatsApp us if you are not sure.</p></div></div>
 
-  <div class="sub-label">Settlements &amp; Records</div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is there a limit on how much I can charge per transaction?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes, transaction limits are set during your Fiuu onboarding based on your business type. To find out your current limit or request an increase, WhatsApp us and we will submit the request to Fiuu on your behalf.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">When will I receive my payout?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Settlements are paid <strong>T+1 working day</strong> to your registered bank account. Weekends and public holidays are not counted. You can track this under <strong>Settlements &#8594; Records</strong> in the Merchant Portal.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">A payment was declined even though the amount is within my limit. Why?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Declines can happen for reasons outside your control, including the customer's card not being enabled for the payment method, insufficient funds on the customer's end, or their bank blocking the transaction. Ask the customer to try a different payment method or contact their bank directly.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">My expected settlement hasn&#39;t arrived. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>First confirm the settlement date has passed (counting working days only). If more than 5 working days have passed, WhatsApp us with your merchant name and the dates involved. We will raise it with Fiuu directly.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I send a payment to a customer who is not physically with me?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes, but this requires payment links to be enabled on your account. Your device runs on Fiuu Offline by default. WhatsApp us to enable payment links and no extra documents are needed from your side.</p></div></div>
+      </div>
+    </div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do I process a refund for a customer?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Log in to the Merchant Portal at <a href="https://portal.fiuu.com" target="_blank">portal.fiuu.com</a>, go to the transaction under <strong>Transactions &#8594; Main Accounts</strong>, and click <strong>Request Cancel</strong> on the transaction detail page. Alternatively, go to <strong>Refund &#8594; Incoming Request</strong> to manage refund requests. Refunds typically reach the customer within 3&#8211;7 working days depending on their bank.</p></div></div>
+    <div class="faq-group" id="group-receipts">
+      <span class="section-anchor" id="receipts-anchor"></span>
+      <div class="faq-group-header" onclick="toggleFaqGroup(this)">
+        <span class="faq-group-title">Receipts and records</span>
+        <div class="faq-group-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-group-body">
+        <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do I print a receipt?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>The device will print a receipt automatically after every successful payment as long as paper is loaded. If it does not print, check that the paper roll is loaded correctly and the compartment lid is fully closed. You can also reprint from <strong>Orders</strong> inside the Fiuu VT app.</p></div></div>
 
-  <div class="sub-label">General</div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I send a digital receipt to a customer?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. After a payment, go to <strong>Orders</strong> in the Fiuu VT app, find the transaction, and send a digital receipt to the customer via email or WhatsApp.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I use the device at different locations or events?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes, anywhere as long as you have internet access. Bring a mobile hotspot as a backup for events or outdoor locations with unreliable Wi-Fi.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">I have run out of receipt paper. Where do I get more?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>WhatsApp us and we can arrange compatible replacement rolls for you. You can also source standard 58mm thermal paper rolls from most stationery or office supply shops.</p></div></div>
+      </div>
+    </div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can multiple staff use the same device?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. Just keep the 4-digit passcode secure and only share it with trusted staff. If you need separate staff to access the Merchant Portal, register them as sub-users under <strong>Settings &#8594; Access Settings</strong>.</p></div></div>
+    <div class="faq-group" id="group-settlements">
+      <span class="section-anchor" id="settlements-anchor"></span>
+      <div class="faq-group-header" onclick="toggleFaqGroup(this)">
+        <span class="faq-group-title">Settlements and payouts</span>
+        <div class="faq-group-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-group-body">
+        <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">When will I receive my payout?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Fiuu settles your transactions <strong>T+1 working day</strong> into your registered bank account. Weekends and public holidays do not count. You can track settlements under <strong>Settlements &rarr; Records</strong> in the Merchant Portal.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I send a payment link to a customer who isn&#39;t physically present?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes, but this requires Fiuu Online to be enabled on your account. Your Essential device runs on Fiuu Offline by default. Contact us to enable payment links &#8212; no extra documents needed from your side.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">My settlement has not arrived. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>First make sure the settlement date has actually passed, counting working days only. If more than 5 working days have gone by with no transfer, WhatsApp us with your merchant name and the relevant dates and we will raise it with Fiuu.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is there a transaction limit?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Transaction limits are set during onboarding and depend on your business type. You can view your current limit under <strong>Settings &#8594; Transaction Settings</strong> in the Merchant Portal. To request a higher limit, WhatsApp us and we will submit the request to Fiuu on your behalf.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do I process a refund for a customer?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Log in to the Merchant Portal at <a href="https://portal.fiuu.com" target="_blank">portal.fiuu.com</a>, go to the transaction under <strong>Transactions &rarr; Main Accounts</strong>, and click <strong>Request Cancel</strong>. Refunds typically reach the customer within 3 to 7 working days depending on their bank.</p></div></div>
 
-  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">A transaction was declined even though it is below my limit. Why?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Declines can happen for reasons beyond your merchant limit. Common causes include the customer&#39;s card not being enabled for the payment method, insufficient funds on the customer&#39;s end, or a temporary connectivity issue. Ask the customer to try a different payment method or contact their bank.</p></div></div>
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">A customer is disputing a charge. What do I do?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Payment disputes and chargebacks are handled directly with Fiuu as they are the payment processor. Log in to the Merchant Portal and check the <strong>Refund</strong> section for any incoming requests. You can also email Fiuu at <a href="mailto:support@fiuu.com">support@fiuu.com</a> with your Merchant ID. WhatsApp us if you need help navigating the process.</p></div></div>
+
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I change the bank account my settlements go into?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. Email Fiuu at <a href="mailto:support@fiuu.com">support@fiuu.com</a> with your Merchant ID and your new bank account details. They will update it on their end.</p></div></div>
+      </div>
+    </div>
+
+    <div class="faq-group" id="group-warranty">
+      <span class="section-anchor" id="warranty-anchor"></span>
+      <div class="faq-group-header" onclick="toggleFaqGroup(this)">
+        <span class="faq-group-title">Device and warranty</span>
+        <div class="faq-group-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="faq-group-body">
+        <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">My device is not working properly. Is it covered under warranty?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>The Essential device comes with a <strong>1-year warranty</strong> covering manufacturing defects. If your device is found to be defective, WhatsApp us and we will arrange a temporary replacement unit while yours is repaired at our service centre. Once repaired, you return the temporary unit to us.</p></div></div>
+
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do I return a defective device?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>WhatsApp us at <strong>+6014 3212 880</strong> and we will issue you a return label. Just pack the device securely and drop it off at any courier collection point. If you are based in the Klang Valley, we may be able to arrange a collection from your location.</p></div></div>
+
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How quickly will I get a replacement device?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>If you are in the Klang Valley, we aim to get you a temporary replacement the same day or next day. For merchants outside the Klang Valley, it should not take more than 3 to 4 working days depending on your location.</p></div></div>
+
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can multiple staff use the same device?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes. Just keep the 4-digit passcode secure and only share it with staff you trust. For Merchant Portal access, register each staff member as a sub-user under <strong>Settings &rarr; Access Settings</strong> so each person has their own login.</p></div></div>
+
+  <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I use the device at different locations or events?</span><div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-a"><p>Yes, anywhere as long as you have internet access. Make sure you have a backup connection ready for outdoor or event use.</p></div></div>
+</div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div class="support-block">
@@ -386,6 +611,10 @@
 
 </main>
 <footer>&copy; 2026 Shiok POS &#8212; an Amica Labs product</footer>
+
+<button class="scroll-top" id="scroll-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <a class="wa-float" href="https://wa.me/60143212880" target="_blank">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -569,6 +798,66 @@ function updateThemeIcon(theme) {
     updateThemeIcon("dark");
   }
 })();
+
+
+// Collapsible FAQ groups
+function toggleFaqGroup(headerEl) {
+  var group = headerEl.parentElement;
+  group.classList.toggle('collapsed');
+}
+
+// FAQ search
+function searchFaq(query) {
+  var q = query.toLowerCase().trim();
+  var allCards = document.querySelectorAll('#faq-groups .faq-card');
+  var allGroups = document.querySelectorAll('.faq-group');
+  var noResults = document.getElementById('faq-no-results');
+  var anyVisible = false;
+
+  if (!q) {
+    allCards.forEach(function(c) { c.classList.remove('hidden'); });
+    allGroups.forEach(function(g) {
+      g.style.display = '';
+      g.classList.remove('collapsed');
+    });
+    noResults.style.display = 'none';
+    return;
+  }
+
+  allGroups.forEach(function(group) {
+    var cards = group.querySelectorAll('.faq-card');
+    var groupHasMatch = false;
+    cards.forEach(function(card) {
+      var text = card.textContent.toLowerCase();
+      if (text.indexOf(q) !== -1) {
+        card.classList.remove('hidden');
+        groupHasMatch = true;
+        anyVisible = true;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    group.style.display = groupHasMatch ? '' : 'none';
+    if (groupHasMatch) group.classList.remove('collapsed');
+  });
+
+  noResults.style.display = anyVisible ? 'none' : 'block';
+}
+
+function clearFaqSearch() {
+  document.getElementById('faq-search-input').value = '';
+  searchFaq('');
+}
+
+// Scroll to top button
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scroll-top-btn');
+  if (window.scrollY > 400) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
 
 </script>
 </body>
