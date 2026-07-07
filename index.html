@@ -72,6 +72,13 @@
     .tab-btn:hover { color: var(--navy); }
     .tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 700; }
 
+    .tab-progress { position: sticky; z-index: 90; background: var(--bg); border-bottom: 1px solid var(--border); padding: 8px 24px; display: none; }
+    .tab-progress.visible { display: block; }
+    .tab-progress-inner { max-width: 760px; margin: 0 auto; }
+    .tab-progress-text { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; text-align: center; }
+    .tab-progress-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .tab-progress-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width 0.15s ease-out; }
+
     main { max-width: 760px; margin: 0 auto; padding: 32px 24px 80px; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
@@ -301,52 +308,6 @@
 
     /* FAQ card hidden state for search */
     .faq-card.hidden { display: none; }
-    /* ── QUICK LINKS ── */
-    .quick-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .quick-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 100px;
-      background: rgba(255,255,255,0.7);
-      border: 1.5px solid rgba(0,32,58,0.15);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--navy);
-      cursor: pointer;
-      transition: all 0.15s;
-      font-family: "Raleway", sans-serif;
-    }
-    .quick-link:hover {
-      background: white;
-      border-color: var(--navy);
-      transform: translateY(-1px);
-    }
-    .quick-link svg {
-      width: 12px; height: 12px;
-      fill: none;
-      stroke: var(--green-dark);
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    [data-theme="dark"] .quick-link {
-      background: rgba(255,255,255,0.85);
-      border-color: rgba(0,32,58,0.2);
-      color: var(--navy);
-    }
-    [data-theme="dark"] .quick-link:hover {
-      background: white;
-      border-color: var(--navy);
-      color: var(--navy);
-    }
     /* ── PRINT BUTTON ── */
     .print-btn {
       display: inline-flex;
@@ -421,7 +382,7 @@
       }
       html, [data-theme="dark"] html { background: #fff !important; }
       body { background: #fff !important; color: #000 !important; }
-      header, .tab-nav, .wa-float, .scroll-top, .print-btn, .global-search-wrap, .faq-search-wrap, .lang-btn, .theme-toggle { display: none !important; }
+      header, .tab-nav, .tab-progress, .wa-float, .scroll-top, .print-btn, .global-search-wrap, .faq-search-wrap, .lang-btn, .theme-toggle { display: none !important; }
       div.tab-panel { display: block !important; page-break-before: always; }
       div.tab-panel.active { page-break-before: auto; }
       main { padding: 0 !important; }
@@ -432,8 +393,6 @@
     }
 
     @media (max-width: 600px) {
-      .quick-links { gap: 6px; }
-      .quick-link { font-size: 11px; padding: 6px 11px; }
     }
 
   
@@ -486,28 +445,6 @@
       <button class="global-search-clear" id="global-search-clear" onclick="clearGlobalSearch()" title="Clear" type="button">&times;</button>
       <div class="global-search-results" id="global-search-results"></div>
     </div>
-<div class="quick-links">
-      <button class="quick-link" onclick="goToAnchor('app-receipt-anchor', 'your-app')">
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-        How do I print a receipt?
-      </button>
-      <button class="quick-link" onclick="goToAnchor('mp-settlements-anchor', 'merchant-portal')">
-        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        Where is my settlement?
-      </button>
-      <button class="quick-link" onclick="goToFaq('faq5_q')">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        Payment was declined
-      </button>
-      <button class="quick-link" onclick="goToAnchor('dc-troubleshooting-anchor', 'device-care')">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Device not working?
-      </button>
-      <button class="quick-link" onclick="goToFaq('faq2_q')">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Didn't get approval email
-      </button>
-    </div>
   </div>
 </div>
 
@@ -535,6 +472,13 @@
     </button>
   </div>
 </nav>
+
+<div class="tab-progress" id="tab-progress">
+  <div class="tab-progress-inner">
+    <span class="tab-progress-text" id="tab-progress-text">Step 1 of 6</span>
+    <div class="tab-progress-track"><div class="tab-progress-fill" id="tab-progress-fill"></div></div>
+  </div>
+</div>
 
 <main>
 
@@ -1242,7 +1186,54 @@ function switchTab(id, btn) {
   document.getElementById(id).classList.add("active");
   if (btn) btn.classList.add("active");
   window.scrollTo({top: 0, behavior: "smooth"});
+  updateTabProgress();
 }
+
+function positionTabProgress() {
+  var nav = document.querySelector(".tab-nav");
+  var bar = document.getElementById("tab-progress");
+  if (nav && bar) bar.style.top = nav.offsetHeight + "px";
+}
+
+function updateTabProgress() {
+  var bar = document.getElementById("tab-progress");
+  var textEl = document.getElementById("tab-progress-text");
+  var fillEl = document.getElementById("tab-progress-fill");
+  if (!bar) return;
+  var panel = document.querySelector(".tab-panel.active");
+  var steps = panel ? panel.querySelectorAll(".step-card") : [];
+  if (!steps.length) {
+    bar.classList.remove("visible");
+    return;
+  }
+  bar.classList.add("visible");
+  var threshold = bar.offsetHeight + (document.querySelector(".tab-nav") ? document.querySelector(".tab-nav").offsetHeight : 0) + 30;
+  var current = 0;
+  for (var i = 0; i < steps.length; i++) {
+    if (steps[i].getBoundingClientRect().top <= threshold) current = i;
+  }
+  textEl.textContent = "Step " + (current + 1) + " of " + steps.length;
+  fillEl.style.width = (((current + 1) / steps.length) * 100) + "%";
+}
+
+var tabProgressTicking = false;
+window.addEventListener("scroll", function() {
+  if (!tabProgressTicking) {
+    window.requestAnimationFrame(function() {
+      updateTabProgress();
+      tabProgressTicking = false;
+    });
+    tabProgressTicking = true;
+  }
+});
+window.addEventListener("resize", function() {
+  positionTabProgress();
+  updateTabProgress();
+});
+window.addEventListener("DOMContentLoaded", function() {
+  positionTabProgress();
+  updateTabProgress();
+});
 
 // Global search across all tabs (step cards + FAQ cards)
 var globalSearchIndex = null;
